@@ -93,5 +93,5 @@ async def read_items(
     optional_param: Optional[str] = Query(
         None, description="This is an optional parameter"
     ),
-):
+) -> dict[str, str]:
     return {"required_param": required_param, "optional_param": optional_param}
