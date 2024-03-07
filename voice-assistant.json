@@ -1,0 +1,25 @@
+{
+	"commands": [
+		{ "command": "Do undo",                  "action": "undo" },
+		{ "command": "Do copy",                  "action": "copy" },
+		{ "command": "Do cut",                   "action": "cut" },
+		{ "command": "Do delete",                "action": "delete" },
+		{ "command": "Do paste",                 "action": "paste" },
+		{ "command": "go", 				 "action": "vsc-command:cursorHome" },
+		{ "command": "home", 				 "action": "vsc-command:cursorHome" },
+		{ "command": "end", 				 "action": "vsc-command:cursorEnd" },
+		{ "command": "Do find",                  "action": "vsc-command:actions.find" },
+		{ "command": "Put new line",             "snippet": "\n" },
+		{ "command": "Put nothing",              "snippet": "" },
+		{ "command": "Put zero",                 "snippet": "0" },
+		{ "command": "Put tabulator",            "snippet": "\t" },
+		{ "command": "Put quotes",               "snippet": "\"\"" },
+		{ "command": "Put space",                "snippet": " " },
+		{ "command": "Put equal",                "snippet": "=" },
+		{ "command": "Put new line",             "snippet": "\n" },
+		{ "command": "Put span",                 "snippet": "<span>$1</span>", "ext": [".html"] },
+		{ "command": "Put heading one",          "snippet": "<h1>$1</h1>", "ext": [".html"] }
+
+
+	]
+}

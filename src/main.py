@@ -1,12 +1,19 @@
 import time
 from functools import lru_cache
-from typing import Optional, Annotated
+from typing import Annotated, Optional
 
+import pandas as pd
+from fastapi import Depends, FastAPI, Query
+from pydantic import BaseModel, Field, field_validator
 
-from fastapi import FastAPI, Depends, Query
-from pydantic import BaseModel, Field
+from src.entity.entity_request import MultipleQueryParams, relative_where_query
+from src.tests.time import Person
 
 app = FastAPI()
+
+person = Person()
+new_pandas = pd.DataFrame
+print(person.name, new_pandas)
 
 
 @lru_cache
@@ -35,63 +42,11 @@ async def clear_cache():
     return {"message": "Cache cleared!"}
 
 
-class MultipleQueryParams(BaseModel):
-    repeats: str = Field(
-        Query(
-            description="Delay in seconds between each loop",
-            example="sas",
-            min_length=1,
-            format="aa",
-        ),
-    )
-    delay: Annotated[
-        int | None,
-        Field(
-            Query(
-                default=None,
-                description="Delay in seconds between each loop",
-                example=2,
-                type="integer",
-            ),
-        ),
-    ]
-    delay2: Optional[int] = Field(
-        Query(
-            default=None,
-            description="Delay in seconds between each loop",
-            example=2,
-            type="integer",
-        ),
-        type="integer",
-    )
-    delay3: int | None = Field(
-        Query(
-            default=None,
-            description="Delay in seconds between each loop",
-            example=2,
-            type="integer",
-            format="int32",
-        ),
-    )
-
-
 # route of multiple query params
 @app.get("/multiple-query-params")
-async def multiple_query_params(query_params: MultipleQueryParams = Depends()):
-
+async def multiple_query_params(
+    query_params: MultipleQueryParams = Depends(),
+):
     print(f"Query: params {query_params=}")
     print(query_params.model_dump(exclude_none=True))
     return query_params.model_dump(exclude_none=True)
-
-
-# route of multiple query params
-
-
-@app.get("/items/")
-async def read_items(
-    required_param: str = Query(..., description="This is a required parameter"),
-    optional_param: Optional[str] = Query(
-        None, description="This is an optional parameter"
-    ),
-) -> dict[str, str]:
-    return {"required_param": required_param, "optional_param": optional_param}
